@@ -1,6 +1,7 @@
 import React from 'react';
 import MovieList from './movielist.jsx'
 import SearchList from './searchlist.jsx'
+import MovieAdd from './movieadd.jsx'
 
 class App extends React.Component {
   constructor() {
@@ -16,6 +17,7 @@ class App extends React.Component {
 
     }
     this.search = this.search.bind(this);
+    this.addFilm = this.addFilm.bind(this);
   }
 
   search(text) {
@@ -26,13 +28,22 @@ class App extends React.Component {
     } else {
       this.setState({moviesOnHand: [{title: 'No Match'}]})
     }
-
   }
+
+  addFilm(text) {
+    let list = this.state.moviesOnHand.slice();
+    list.push(text)
+    this.setState({
+      moviesOnHand: list
+  })
+  }
+
 
   render() {
     return (
       <div>
         <h1>Movie List</h1>
+        <MovieAdd addFilm={this.addFilm} />
         <SearchList search={this.search} />
         <MovieList videos={this.state.moviesOnHand} search={this.search}/>
       </div>
